@@ -4,4 +4,9 @@ body {
   align-items: center;
   background-color: $dark-grey;
   height: 100vh;
+  font-family: 'Arimo', sans-serif;
+}
+
+* {
+  box-sizing: border-box;
 }

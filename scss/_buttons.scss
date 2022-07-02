@@ -1,0 +1,19 @@
+.buttons {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  row-gap: 0.5em;
+}
+
+.btn {
+  display: inline-block;
+  height: 80px;
+  line-height: 80px;
+  width: 80px;
+  font-size: 2em;
+  font-weight: bold;
+  border-radius: 50%;
+  background-color: $dark-grey;
+  color: white;
+  text-align: center;
+  cursor: pointer;
+}
