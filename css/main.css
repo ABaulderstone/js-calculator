@@ -385,5 +385,16 @@ section {
   text-align: center;
   cursor: pointer;
 }
+.btn--orange {
+  background-color: #f69907;
+}
+.btn--light-grey {
+  background-color: #a0a0a0;
+}
+.btn--large {
+  grid-column: span 2;
+  width: 160px;
+  border-radius: 30px;
+}
 
 /*# sourceMappingURL=main.css.map */

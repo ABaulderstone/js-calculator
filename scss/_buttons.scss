@@ -16,4 +16,16 @@
   color: white;
   text-align: center;
   cursor: pointer;
+  &--orange {
+    background-color: $orange;
+  }
+  &--light-grey {
+    background-color: $light-grey;
+  }
+
+  &--large {
+    grid-column: span 2;
+    width: 160px;
+    border-radius: 30px;
+  }
 }
