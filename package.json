@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "npm run jest",
-    "compile:css": "sass ./scss/main.scss ./css/main.css"
+    "compile:css": "sass ./scss/main.scss ./css/main.css",
+    "watch:css": "sass --watch ./scss/main.scss:./css/main.css"
   },
   "author": "Abaulderstone",
   "license": "ISC",

@@ -309,4 +309,25 @@ template {
   display: none;
 }
 
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #313131;
+  height: 100vh;
+}
+
+.calculator-body {
+  width: 375px;
+  height: 812px;
+  border-radius: 50px;
+  display: flex;
+  flex-direction: column;
+  background-color: #000;
+  color: #fff;
+}
+.calculator-body section {
+  margin: 1em;
+}
+
 /*# sourceMappingURL=main.css.map */

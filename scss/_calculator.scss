@@ -1,0 +1,13 @@
+.calculator-body {
+  width: 375px;
+  height: 812px;
+  border-radius: 50px;
+  display: flex;
+  flex-direction: column;
+  background-color: #000;
+  color: #fff;
+
+  section {
+    margin: 1em;
+  }
+}
