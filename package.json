@@ -1,0 +1,17 @@
+{
+  "name": "calculator-project",
+  "version": "1.0.0",
+  "description": "A simple JS calculator",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm run jest",
+    "compile:css": "sass ./scss/main.scss ./css/main.css"
+  },
+  "author": "Abaulderstone",
+  "license": "ISC",
+  "devDependencies": {
+    "jest": "^28.1.2",
+    "sass": "^1.53.0"
+  },
+  "type": "module"
+}
