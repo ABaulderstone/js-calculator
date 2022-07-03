@@ -23,3 +23,7 @@ export const setDefaults = () => {
   document.getElementById('equationText').innerText = '';
   document.getElementById('errorText').innerText = '';
 };
+
+export const overwriteEquation = (newEquation) => {
+  document.getElementById('equationText').innerText = newEquation;
+};

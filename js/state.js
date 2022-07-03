@@ -29,6 +29,9 @@ export default (
     updateOperator(input) {
       state.currentOperator = input;
     },
+    getSavedEquation() {
+      return state.savedEquation;
+    },
     updateSavedEquation(input) {
       state.savedEquation = input;
     },

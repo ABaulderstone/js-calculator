@@ -6,3 +6,7 @@ export const delinatedStringToNumber = (str) => {
 export const numberToLocaleString = (number) => {
   return number.toLocaleString('en-US');
 };
+
+export const removeResultFromEquation = (str) => {
+  return str.split('=')[0];
+};

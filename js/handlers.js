@@ -4,20 +4,32 @@ import {
   writeToEquation,
   writeToDisplay,
   setDefaults,
+  overwriteEquation,
 } from './dom-updates.js';
 
 import { arithmetic } from './math.js';
 
 import useState from './state.js';
-import { delinatedStringToNumber } from './transformations.js';
+import {
+  delinatedStringToNumber,
+  removeResultFromEquation,
+} from './transformations.js';
 const state = useState();
 
 export const operatorHandler = (e) => {
   e.preventDefault();
+
+  //remove equals from previous result equation
+  const savedEquation = state.getSavedEquation();
+  savedEquation && overwriteEquation(removeResultFromEquation(savedEquation));
+
   const operator = e.target.innerText;
   state.updateOperator(operator);
+  //style button and add to equation text
   setSelected(e.target);
   writeToEquation(operator);
+
+  //set current number to null and save whatever is in display as prev number
   state.updatePrevNumber(state.getCurrentNumber());
   state.updateCurrentNumber(null);
 };
@@ -27,6 +39,7 @@ export const numberHandler = (e) => {
   clearSelected();
   const inputNumber = e.target.innerText;
   writeToEquation(inputNumber);
+
   if (state.getCurrentNumber()) {
     const displayValue = document.getElementById('displayText').innerText;
     const updatedValue =
@@ -35,6 +48,7 @@ export const numberHandler = (e) => {
   } else {
     state.updateCurrentNumber(delinatedStringToNumber(inputNumber));
   }
+
   writeToDisplay(state.getCurrentNumber());
 };
 
@@ -43,11 +57,13 @@ export const equalsHandler = (e) => {
   const prevNumber = state.getPrevNumber();
   const currentNumber = state.getCurrentNumber();
   const operator = state.getCurrentOperator();
-  console.log(operator);
   if (prevNumber && currentNumber && operator) {
     const result = arithmetic(prevNumber, currentNumber, operator);
+    console.log(result);
+    // update dom
     writeToEquation(`=${result}`);
     writeToDisplay(result);
+    // reset state
     state.updateCurrentNumber(result);
     state.updateOperator(null);
     state.updateSavedEquation(
