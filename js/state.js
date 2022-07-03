@@ -1,7 +1,7 @@
 export default (
   initalState = {
     prevNumber: null,
-    currentNumber: 0,
+    currentNumber: null,
     selectedOperator: null,
     savedEquation: null,
   }
@@ -21,6 +21,10 @@ export default (
       return state.currentNumber;
     },
     updateCurrentNumber(input) {
+      if (input === null) {
+        state.currentNumber = null;
+        return;
+      }
       state.currentNumber = Number(input);
     },
     getCurrentOperator() {

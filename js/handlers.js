@@ -42,16 +42,14 @@ export const numberHandler = (e) => {
   writeToEquation(inputNumber);
   const currentNumber = state.getCurrentNumber();
   const displayValue = document.getElementById('displayText').innerText;
-
-  if (currentNumber) {
+  console.log(currentNumber);
+  if (currentNumber === null) {
     // if current number add to it, starting number is 0 so disregard
-    const displayValue = document.getElementById('displayText').innerText;
-    const updatedValue =
-      (displayValue === '0' ? '' : displayValue) + inputNumber;
-    console.log(updatedValue);
-    state.updateCurrentNumber(delinatedStringToNumber(updatedValue));
-  } else {
     state.updateCurrentNumber(delinatedStringToNumber(inputNumber));
+  } else {
+    state.updateCurrentNumber(
+      delinatedStringToNumber(displayValue + inputNumber)
+    );
   }
 
   writeToDisplay(state.getCurrentNumber());
