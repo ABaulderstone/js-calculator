@@ -1,5 +1,10 @@
 export default (
-  initalState = { prevNumber: null, currentNumber: 0, selectedOperator: null }
+  initalState = {
+    prevNumber: null,
+    currentNumber: 0,
+    selectedOperator: null,
+    savedEquation: null,
+  }
 ) => {
   const state = {
     ...initalState,
@@ -23,6 +28,9 @@ export default (
     },
     updateOperator(input) {
       state.currentOperator = input;
+    },
+    updateSavedEquation(input) {
+      state.savedEquation = input;
     },
 
     resetState() {

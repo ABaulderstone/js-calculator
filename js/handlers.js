@@ -48,8 +48,11 @@ export const equalsHandler = (e) => {
     const result = arithmetic(prevNumber, currentNumber, operator);
     writeToEquation(`=${result}`);
     writeToDisplay(result);
-    state.updatePrevNumber(result);
-    state.updateCurrentNumber(null);
+    state.updateCurrentNumber(result);
+    state.updateOperator(null);
+    state.updateSavedEquation(
+      document.getElementById('equationText').innerText
+    );
   }
 };
 
