@@ -1,4 +1,6 @@
-export default (initalState = { prevNumber: null, currentNumber: 0 }) => {
+export default (
+  initalState = { prevNumber: null, currentNumber: 0, selectedOperator: null }
+) => {
   const state = {
     ...initalState,
   };
@@ -16,6 +18,13 @@ export default (initalState = { prevNumber: null, currentNumber: 0 }) => {
     updateCurrentNumber(input) {
       state.currentNumber = Number(input);
     },
+    getCurrentOperator() {
+      return state.currentOperator;
+    },
+    updateOperator(input) {
+      state.currentOperator = input;
+    },
+
     resetState() {
       for (let key in initalState) {
         state[key] = initalState[key];

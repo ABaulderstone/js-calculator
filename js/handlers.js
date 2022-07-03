@@ -13,17 +13,23 @@ const state = useState();
 export const operatorHandler = (e) => {
   e.preventDefault();
   setSelected(e.target);
+  writeToEquation(e.target.innerText);
+  state.updatePrevNumber(state.getCurrentNumber());
+  state.updateCurrentNumber(null);
 };
 
 export const numberHandler = (e) => {
   e.preventDefault();
   clearSelected();
   writeToEquation(e.target.innerText);
-  const displayValue = document.getElementById('displayText').innerText;
-  const updatedValue =
-    (displayValue === '0' ? '' : displayValue) + e.target.innerText;
-
-  state.updateCurrentNumber(delinatedStringToNumber(updatedValue));
+  if (state.getCurrentNumber()) {
+    const displayValue = document.getElementById('displayText').innerText;
+    const updatedValue =
+      (displayValue === '0' ? '' : displayValue) + e.target.innerText;
+    state.updateCurrentNumber(delinatedStringToNumber(updatedValue));
+  } else {
+    state.updateCurrentNumber(delinatedStringToNumber(e.target.innerText));
+  }
   writeToDisplay(state.getCurrentNumber());
 };
 
