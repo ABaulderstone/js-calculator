@@ -6,8 +6,11 @@
   flex-direction: column;
   background-color: #000;
   color: #fff;
+  justify-content: space-between;
 }
 
 section {
   margin: 1em;
+  width: 90%;
+  display: flex;
 }

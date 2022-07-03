@@ -6,31 +6,33 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="./css/main.css" />
     <title>Calculator</title>
+    <script src="./js/index.js" defer type="module"></script>
   </head>
   <body>
     <main class="calculator-body">
+      <section class="error"><span id="errorText">dsa</span></section>
       <section class="equation"><span id="equationText"></span></section>
-      <section class="display"><span id="displayText">Display</span></section>
+      <section class="display"><span id="displayText"></span></section>
       <section class="buttons">
         <button class="btn btn--light-grey">AC</button>
         <button class="btn btn--light-grey">&larr;</button>
         <button class="btn btn--light-grey">%</button>
-        <button class="btn btn--orange">&divide;</button>
-        <button class="btn">7</button>
-        <button class="btn">8</button>
-        <button class="btn">9</button>
-        <button class="btn btn btn--orange">&times;</button>
-        <button class="btn">4</button>
-        <button class="btn">5</button>
-        <button class="btn">6</button>
-        <button class="btn btn--orange">&minus;</button>
-        <button class="btn">1</button>
-        <button class="btn">2</button>
-        <button class="btn">3</button>
-        <button class="btn btn--orange">&plus;</button>
-        <button class="btn btn--large">0</button>
+        <button class="btn btn--orange operator">&divide;</button>
+        <button class="btn number">7</button>
+        <button class="btn number">8</button>
+        <button class="btn number">9</button>
+        <button class="btn btn btn--orange operator">&times;</button>
+        <button class="btn number">4</button>
+        <button class="btn number">5</button>
+        <button class="btn number">6</button>
+        <button class="btn btn--orange operator">&minus;</button>
+        <button class="btn number">1</button>
+        <button class="btn number">2</button>
+        <button class="btn number">3</button>
+        <button class="btn btn--orange operator">&plus;</button>
+        <button class="btn number btn--large">0</button>
         <button class="btn">.</button>
-        <button class="btn btn--orange">&equals;</button>
+        <button class="btn btn--orange equals">&equals;</button>
       </section>
     </main>
   </body>

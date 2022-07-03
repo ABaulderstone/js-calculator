@@ -332,8 +332,24 @@ body {
   font-family: "Arimo", sans-serif;
 }
 
+section {
+  margin: 1em;
+  width: 90%;
+  display: flex;
+  font-size: 1.5em;
+  justify-content: flex-end;
+}
+
 * {
   box-sizing: border-box;
+}
+
+.error {
+  align-items: center;
+  color: red;
+  margin-top: 1.5em;
+  justify-content: center;
+  align-items: center;
 }
 
 .calculator-body {
@@ -344,26 +360,23 @@ body {
   flex-direction: column;
   background-color: #000;
   color: #fff;
+  justify-content: space-between;
 }
 
 section {
   margin: 1em;
+  width: 90%;
+  display: flex;
 }
 
 .equation {
-  width: 90%;
-  display: flex;
-  margin-top: 4em;
-  font-size: 1.5em;
-  justify-content: flex-end;
+  margin-top: 1.5em;
+  padding-right: 0.5em;
 }
 
 .display {
-  width: 90%;
-  display: flex;
   font-size: 3em;
-  padding: 0.5em;
-  justify-content: flex-end;
+  padding-right: 0.5em;
 }
 
 .buttons {
@@ -387,6 +400,7 @@ section {
 }
 .btn--orange {
   background-color: #f69907;
+  transition: all 0.2s linear;
 }
 .btn--light-grey {
   background-color: #a0a0a0;
@@ -395,6 +409,11 @@ section {
   grid-column: span 2;
   width: 160px;
   border-radius: 30px;
+}
+
+.selected {
+  background-color: white;
+  color: #f69907;
 }
 
 /*# sourceMappingURL=main.css.map */
