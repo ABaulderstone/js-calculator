@@ -6,14 +6,18 @@ import {
   setDefaults,
 } from './dom-updates.js';
 
+import { arithmetic } from './math.js';
+
 import useState from './state.js';
 import { delinatedStringToNumber } from './transformations.js';
 const state = useState();
 
 export const operatorHandler = (e) => {
   e.preventDefault();
+  const operator = e.target.innerText;
+  state.updateOperator(operator);
   setSelected(e.target);
-  writeToEquation(e.target.innerText);
+  writeToEquation(operator);
   state.updatePrevNumber(state.getCurrentNumber());
   state.updateCurrentNumber(null);
 };
@@ -21,16 +25,32 @@ export const operatorHandler = (e) => {
 export const numberHandler = (e) => {
   e.preventDefault();
   clearSelected();
-  writeToEquation(e.target.innerText);
+  const inputNumber = e.target.innerText;
+  writeToEquation(inputNumber);
   if (state.getCurrentNumber()) {
     const displayValue = document.getElementById('displayText').innerText;
     const updatedValue =
-      (displayValue === '0' ? '' : displayValue) + e.target.innerText;
+      (displayValue === '0' ? '' : displayValue) + inputNumber;
     state.updateCurrentNumber(delinatedStringToNumber(updatedValue));
   } else {
-    state.updateCurrentNumber(delinatedStringToNumber(e.target.innerText));
+    state.updateCurrentNumber(delinatedStringToNumber(inputNumber));
   }
   writeToDisplay(state.getCurrentNumber());
+};
+
+export const equalsHandler = (e) => {
+  e.preventDefault();
+  const prevNumber = state.getPrevNumber();
+  const currentNumber = state.getCurrentNumber();
+  const operator = state.getCurrentOperator();
+  console.log(operator);
+  if (prevNumber && currentNumber && operator) {
+    const result = arithmetic(prevNumber, currentNumber, operator);
+    writeToEquation(`=${result}`);
+    writeToDisplay(result);
+    state.updatePrevNumber(result);
+    state.updateCurrentNumber(null);
+  }
 };
 
 export const allClearHandler = (e) => {

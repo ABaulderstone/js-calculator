@@ -1,4 +1,9 @@
-import { operatorHandler, numberHandler, allClearHandler } from './handlers.js';
+import {
+  operatorHandler,
+  numberHandler,
+  allClearHandler,
+  equalsHandler,
+} from './handlers.js';
 
 document
   .querySelectorAll('.operator')
@@ -9,3 +14,5 @@ document
   .forEach((element) => element.addEventListener('click', numberHandler));
 
 document.getElementById('allClear').addEventListener('click', allClearHandler);
+
+document.getElementById('equals').addEventListener('click', equalsHandler);
