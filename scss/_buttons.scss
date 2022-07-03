@@ -2,6 +2,8 @@
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
   row-gap: 0.5em;
+  width: 90%;
+  column-gap: 10px;
 }
 
 .btn {
