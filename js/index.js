@@ -3,6 +3,7 @@ import {
   numberHandler,
   allClearHandler,
   equalsHandler,
+  periodHandler,
 } from './handlers.js';
 
 document
@@ -16,3 +17,5 @@ document
 document.getElementById('allClear').addEventListener('click', allClearHandler);
 
 document.getElementById('equals').addEventListener('click', equalsHandler);
+
+document.getElementById('period').addEventListener('click', periodHandler);

@@ -10,3 +10,7 @@ export const numberToLocaleString = (number) => {
 export const removeResultFromEquation = (str) => {
   return str.split('=')[0];
 };
+
+export const addDecimalToString = (str) => {
+  return /\.+/.test(str) ? str : str + '.';
+};

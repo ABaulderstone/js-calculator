@@ -13,6 +13,7 @@ import useState from './state.js';
 import {
   delinatedStringToNumber,
   removeResultFromEquation,
+  addDecimalToString,
 } from './transformations.js';
 const state = useState();
 
@@ -41,6 +42,7 @@ export const numberHandler = (e) => {
   writeToEquation(inputNumber);
 
   if (state.getCurrentNumber()) {
+    // if current number add to it, starting number is 0 so disregard
     const displayValue = document.getElementById('displayText').innerText;
     const updatedValue =
       (displayValue === '0' ? '' : displayValue) + inputNumber;
@@ -72,6 +74,13 @@ export const equalsHandler = (e) => {
   }
 };
 
+export const periodHandler = (e) => {
+  e.preventDefault();
+  const displayText = document.getElementById('displayText').innerText;
+  if (/\.+/.test(displayText)) return;
+  writeToDisplay(displayText + '.');
+  writeToEquation('.');
+};
 export const allClearHandler = (e) => {
   e.preventDefault();
   setDefaults();
