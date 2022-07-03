@@ -40,12 +40,15 @@ export const numberHandler = (e) => {
   clearSelected();
   const inputNumber = e.target.innerText;
   writeToEquation(inputNumber);
+  const currentNumber = state.getCurrentNumber();
+  const displayValue = document.getElementById('displayText').innerText;
 
-  if (state.getCurrentNumber()) {
+  if (currentNumber) {
     // if current number add to it, starting number is 0 so disregard
     const displayValue = document.getElementById('displayText').innerText;
     const updatedValue =
       (displayValue === '0' ? '' : displayValue) + inputNumber;
+    console.log(updatedValue);
     state.updateCurrentNumber(delinatedStringToNumber(updatedValue));
   } else {
     state.updateCurrentNumber(delinatedStringToNumber(inputNumber));
