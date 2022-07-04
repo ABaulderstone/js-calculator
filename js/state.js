@@ -6,6 +6,7 @@ export default (
     savedEquation: null,
     displayText: '',
     secondInput: false,
+    result: null,
   }
 ) => {
   const state = {
@@ -53,6 +54,12 @@ export default (
     },
     toggleSecondInput() {
       state.secondInput = !state.secondInput;
+    },
+    getResult() {
+      return state.result;
+    },
+    updateResult(number) {
+      state.result = number;
     },
 
     resetState() {

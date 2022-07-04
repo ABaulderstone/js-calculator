@@ -22,3 +22,9 @@ export const updateStringtoLocale = (str) => {
   if (!right) return commaString;
   return `${commaString}.${right}`;
 };
+
+export const retreiveLastOperationFromEquation = (str) => {
+  const [left, right] = str.split('=');
+  const [operator, value] = left.substring(left.length - 2).split('');
+  return [operator, value];
+};

@@ -15,6 +15,7 @@ import {
   removeResultFromEquation,
   addDecimalToString,
   updateStringtoLocale,
+  retreiveLastOperationFromEquation,
 } from './transformations.js';
 const state = useState();
 
@@ -59,6 +60,7 @@ export const numberHandler = (e) => {
 export const equalsHandler = (e) => {
   e.preventDefault();
   const prevNumber = state.getPrevNumber();
+  const result = state.getResult();
 
   const displayText = state.getDisplayText();
   state.updateCurrentNumber(delinatedStringToNumber(displayText));
@@ -67,18 +69,42 @@ export const equalsHandler = (e) => {
 
   const operator = state.getCurrentOperator();
   if (prevNumber && currentNumber && operator) {
-    const result = arithmetic(prevNumber, currentNumber, operator);
-    console.log(result);
+    const answer = arithmetic(result || prevNumber, currentNumber, operator);
+    console.log(answer);
     // update dom
-    writeToEquation(`=${result}`);
-    writeToDisplay(result);
+    writeToEquation(`=${answer}`);
+    writeToDisplay(answer);
     // reset state
-    state.updatePrevNumber(result);
+    state.updateResult(answer);
+    state.updatePrevNumber(null);
+    state.updateCurrentNumber(null);
     state.updateOperator(null);
     state.updateSavedEquation(
       document.getElementById('equationText').innerText
     );
+    return;
   }
+
+  // if no last equation return
+  const savedEquation = state.getSavedEquation();
+  if (!savedEquation) return;
+
+  // if no prev number select last operator and number
+  const [lastOperator, lastValue] =
+    retreiveLastOperationFromEquation(savedEquation);
+  const answer = arithmetic(
+    state.getResult(),
+    parseFloat(lastValue),
+    lastOperator
+  );
+  state.updateResult(answer);
+  const newEquation =
+    removeResultFromEquation(savedEquation) + lastOperator + lastValue;
+  console.log(newEquation);
+  overwriteEquation(newEquation + '=' + answer);
+  state.updateSavedEquation(document.getElementById('equationText').innerText);
+
+  writeToDisplay(answer);
 };
 
 export const periodHandler = (e) => {
