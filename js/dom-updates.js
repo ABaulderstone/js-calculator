@@ -13,9 +13,8 @@ export const writeToEquation = (content) => {
   document.getElementById('equationText').innerText += content;
 };
 
-export const writeToDisplay = (number) => {
-  document.getElementById('displayText').innerText =
-    numberToLocaleString(number);
+export const writeToDisplay = (str) => {
+  document.getElementById('displayText').innerText = str;
 };
 
 export const setDefaults = () => {
