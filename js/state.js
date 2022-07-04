@@ -4,6 +4,8 @@ export default (
     currentNumber: null,
     selectedOperator: null,
     savedEquation: null,
+    displayText: '',
+    secondInput: false,
   }
 ) => {
   const state = {
@@ -38,6 +40,19 @@ export default (
     },
     updateSavedEquation(input) {
       state.savedEquation = input;
+    },
+    getDisplayText() {
+      return state.displayText;
+    },
+    updateDisplayText(input) {
+      state.displayText = input;
+    },
+
+    getSecondInput() {
+      return state.secondInput;
+    },
+    toggleSecondInput() {
+      state.secondInput = !state.secondInput;
     },
 
     resetState() {

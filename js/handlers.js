@@ -14,13 +14,17 @@ import {
   delinatedStringToNumber,
   removeResultFromEquation,
   addDecimalToString,
+  updateStringtoLocale,
 } from './transformations.js';
 const state = useState();
 
 export const operatorHandler = (e) => {
   e.preventDefault();
-
+  const displayText = state.getDisplayText();
+  state.updatePrevNumber(delinatedStringToNumber(displayText));
   //remove equals from previous result equation
+  state.getPrevNumber() && state.toggleSecondInput();
+
   const savedEquation = state.getSavedEquation();
   savedEquation && overwriteEquation(removeResultFromEquation(savedEquation));
 
@@ -31,34 +35,36 @@ export const operatorHandler = (e) => {
   writeToEquation(operator);
 
   //set current number to null and save whatever is in display as prev number
-  state.updatePrevNumber(state.getCurrentNumber());
-  state.updateCurrentNumber(null);
 };
 
 export const numberHandler = (e) => {
   e.preventDefault();
   clearSelected();
-  const inputNumber = e.target.innerText;
-  writeToEquation(inputNumber);
-  const currentNumber = state.getCurrentNumber();
-  const displayValue = document.getElementById('displayText').innerText;
-  console.log(currentNumber);
-  if (currentNumber === null) {
-    // if current number add to it, starting number is 0 so disregard
-    state.updateCurrentNumber(delinatedStringToNumber(inputNumber));
-  } else {
-    state.updateCurrentNumber(
-      delinatedStringToNumber(displayValue + inputNumber)
-    );
+  if (state.getSecondInput()) {
+    state.updateDisplayText('');
+    state.toggleSecondInput();
   }
 
-  writeToDisplay(state.getCurrentNumber());
+  writeToDisplay(state.getDisplayText());
+  const inputNumber = e.target.innerText;
+  const displayText = state.getDisplayText();
+  writeToEquation(inputNumber);
+  const updatedText = displayText + inputNumber;
+  console.log(updatedText);
+  state.updateDisplayText(updateStringtoLocale(updatedText));
+  console.log(state.getDisplayText());
+  writeToDisplay(state.getDisplayText());
 };
 
 export const equalsHandler = (e) => {
   e.preventDefault();
   const prevNumber = state.getPrevNumber();
+
+  const displayText = state.getDisplayText();
+  state.updateCurrentNumber(delinatedStringToNumber(displayText));
+
   const currentNumber = state.getCurrentNumber();
+
   const operator = state.getCurrentOperator();
   if (prevNumber && currentNumber && operator) {
     const result = arithmetic(prevNumber, currentNumber, operator);
@@ -67,7 +73,7 @@ export const equalsHandler = (e) => {
     writeToEquation(`=${result}`);
     writeToDisplay(result);
     // reset state
-    state.updateCurrentNumber(result);
+    state.updatePrevNumber(result);
     state.updateOperator(null);
     state.updateSavedEquation(
       document.getElementById('equationText').innerText
@@ -77,9 +83,9 @@ export const equalsHandler = (e) => {
 
 export const periodHandler = (e) => {
   e.preventDefault();
-  const displayText = document.getElementById('displayText').innerText;
+  const displayText = state.getDisplayText();
   if (/\.+/.test(displayText)) return;
-  writeToDisplay(displayText + '.');
+  state.updateDisplayText(displayText + '.');
   writeToEquation('.');
 };
 export const allClearHandler = (e) => {

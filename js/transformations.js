@@ -14,3 +14,11 @@ export const removeResultFromEquation = (str) => {
 export const addDecimalToString = (str) => {
   return /\.+/.test(str) ? str : str + '.';
 };
+
+export const updateStringtoLocale = (str) => {
+  const [left, right] = str.split('.');
+  const number = delinatedStringToNumber(left);
+  const commaString = numberToLocaleString(number);
+  if (!right) return commaString;
+  return `${commaString}.${right}`;
+};
