@@ -97,6 +97,8 @@ export const equalsHandler = (e) => {
     parseFloat(lastValue),
     lastOperator
   );
+
+  // TODO TIDY
   state.updateResult(answer);
   const newEquation =
     removeResultFromEquation(savedEquation) + lastOperator + lastValue;
