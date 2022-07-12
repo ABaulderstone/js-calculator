@@ -9,57 +9,18 @@ export default (
     result: null,
   }
 ) => {
-  const state = {
+  let state = {
     ...initalState,
   };
 
   return {
-    getPrevNumber() {
-      return state.prevNumber;
-    },
-    updatePrevNumber(input) {
-      state.prevNumber = Number(input);
-    },
-    getCurrentNumber() {
-      return state.currentNumber;
-    },
-    updateCurrentNumber(input) {
-      if (input === null) {
-        state.currentNumber = null;
-        return;
-      }
-      state.currentNumber = Number(input);
-    },
-    getCurrentOperator() {
-      return state.currentOperator;
-    },
-    updateOperator(input) {
-      state.currentOperator = input;
-    },
-    getSavedEquation() {
-      return state.savedEquation;
-    },
-    updateSavedEquation(input) {
-      state.savedEquation = input;
-    },
-    getDisplayText() {
-      return state.displayText;
-    },
-    updateDisplayText(input) {
-      state.displayText = input;
+    set(key, newValue) {
+      if (!state[key]) return;
+      state = { ...state, [key]: newValue };
     },
 
-    getSecondInput() {
-      return state.secondInput;
-    },
-    toggleSecondInput() {
-      state.secondInput = !state.secondInput;
-    },
-    getResult() {
-      return state.result;
-    },
-    updateResult(number) {
-      state.result = number;
+    get(key) {
+      return state[key];
     },
 
     resetState() {
