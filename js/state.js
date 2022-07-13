@@ -14,8 +14,12 @@ export default (
   };
 
   return {
+    logState() {
+      console.log(state);
+    },
+
     set(key, newValue) {
-      if (!state[key]) return;
+      if (state[key] === undefined) return;
       state = { ...state, [key]: newValue };
     },
 

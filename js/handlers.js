@@ -30,7 +30,7 @@ export const operatorHandler = (e) => {
   savedEquation && overwriteEquation(removeResultFromEquation(savedEquation));
 
   const operator = e.target.innerText;
-  state.set('operator', operator);
+  state.set('selectedOperator', operator);
   //style button and add to equation text
   setSelected(e.target);
   writeToEquation(operator);
@@ -40,9 +40,10 @@ export const operatorHandler = (e) => {
 
 export const numberHandler = (e) => {
   clearSelected();
-  if (state.get('secondInput')) {
-    state.updateDisplayText('');
-    state.toggleSecondInput();
+  const isSecondInput = state.get('secondInput');
+  if (isSecondInput) {
+    state.set('displayText', '');
+    state.set('secondInput', !isSecondInput);
   }
 
   writeToDisplay(state.get('displayText'));
@@ -65,7 +66,8 @@ export const equalsHandler = (e) => {
 
   const currentNumber = state.get('currentNumber');
 
-  const operator = state.get('operator');
+  const operator = state.get('selectedOperator');
+  state.logState();
   if (prevNumber && currentNumber && operator) {
     const answer = arithmetic(result || prevNumber, currentNumber, operator);
     console.log(answer);
@@ -76,7 +78,7 @@ export const equalsHandler = (e) => {
     state.set('result', answer);
     state.set('prevNumber', null);
     state.set('currentNumber', null);
-    state.set('operator', null);
+    state.set('selectedOperator', null);
     state.set(
       'savedEquation',
       document.getElementById('equationText').innerText
