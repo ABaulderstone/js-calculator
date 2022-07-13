@@ -20,17 +20,17 @@ import {
 const state = useState();
 
 export const operatorHandler = (e) => {
-  e.preventDefault();
-  const displayText = state.getDisplayText();
-  state.updatePrevNumber(delinatedStringToNumber(displayText));
+  const displayText = state.get('displayText');
+  state.set('prevNumber', delinatedStringToNumber(displayText));
   //remove equals from previous result equation
-  state.getPrevNumber() && state.toggleSecondInput();
+  state.get('prevNumber') &&
+    state.set('secondInput', !state.get('secondInput'));
 
-  const savedEquation = state.getSavedEquation();
+  const savedEquation = state.get('savedEquation');
   savedEquation && overwriteEquation(removeResultFromEquation(savedEquation));
 
   const operator = e.target.innerText;
-  state.updateOperator(operator);
+  state.set('operator', operator);
   //style button and add to equation text
   setSelected(e.target);
   writeToEquation(operator);
@@ -39,35 +39,33 @@ export const operatorHandler = (e) => {
 };
 
 export const numberHandler = (e) => {
-  e.preventDefault();
   clearSelected();
-  if (state.getSecondInput()) {
+  if (state.get('secondInput')) {
     state.updateDisplayText('');
     state.toggleSecondInput();
   }
 
-  writeToDisplay(state.getDisplayText());
+  writeToDisplay(state.get('displayText'));
   const inputNumber = e.target.innerText;
-  const displayText = state.getDisplayText();
+  const displayText = state.get('displayText');
   writeToEquation(inputNumber);
   const updatedText = displayText + inputNumber;
   console.log(updatedText);
-  state.updateDisplayText(updateStringtoLocale(updatedText));
-  console.log(state.getDisplayText());
-  writeToDisplay(state.getDisplayText());
+  state.set('displayText', updateStringtoLocale(updatedText));
+  console.log(state.get('displayText'));
+  writeToDisplay(state.get('displayText'));
 };
 
 export const equalsHandler = (e) => {
-  e.preventDefault();
-  const prevNumber = state.getPrevNumber();
-  const result = state.getResult();
+  const prevNumber = state.get('prevNumber');
+  const result = state.get('result');
 
-  const displayText = state.getDisplayText();
-  state.updateCurrentNumber(delinatedStringToNumber(displayText));
+  const displayText = state.get('displayText');
+  state.set('currentNumber', delinatedStringToNumber(displayText));
 
-  const currentNumber = state.getCurrentNumber();
+  const currentNumber = state.get('currentNumber');
 
-  const operator = state.getCurrentOperator();
+  const operator = state.get('operator');
   if (prevNumber && currentNumber && operator) {
     const answer = arithmetic(result || prevNumber, currentNumber, operator);
     console.log(answer);
@@ -75,45 +73,45 @@ export const equalsHandler = (e) => {
     writeToEquation(`=${answer}`);
     writeToDisplay(answer);
     // reset state
-    state.updateResult(answer);
-    state.updatePrevNumber(null);
-    state.updateCurrentNumber(null);
-    state.updateOperator(null);
-    state.updateSavedEquation(
+    state.set('result', answer);
+    state.set('prevNumber', null);
+    state.set('currentNumber', null);
+    state.set('operator', null);
+    state.set(
+      'savedEquation',
       document.getElementById('equationText').innerText
     );
     return;
   }
 
   // if no last equation return
-  const savedEquation = state.getSavedEquation();
+  const savedEquation = state.get('savedEquation');
   if (!savedEquation) return;
 
   // if no prev number select last operator and number
   const [lastOperator, lastValue] =
     retreiveLastOperationFromEquation(savedEquation);
   const answer = arithmetic(
-    state.getResult(),
+    state.get('result'),
     parseFloat(lastValue),
     lastOperator
   );
 
   // TODO TIDY
-  state.updateResult(answer);
+  state.set('result', answer);
   const newEquation =
     removeResultFromEquation(savedEquation) + lastOperator + lastValue;
   console.log(newEquation);
   overwriteEquation(newEquation + '=' + answer);
-  state.updateSavedEquation(document.getElementById('equationText').innerText);
+  state.set('savedEquation', document.getElementById('equationText').innerText);
 
   writeToDisplay(answer);
 };
 
 export const periodHandler = (e) => {
-  e.preventDefault();
-  const displayText = state.getDisplayText();
+  const displayText = state.get('displayText');
   if (/\.+/.test(displayText)) return;
-  state.updateDisplayText(displayText + '.');
+  state.set('displayText', displayText + '.');
   writeToEquation('.');
 };
 export const allClearHandler = (e) => {
