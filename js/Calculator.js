@@ -86,6 +86,13 @@ export class Calculator {
   addListeners() {
     this.numberButtons.forEach((numberButton) => {
       numberButton.addEventListener('click', (e) => {
+        clearSelected();
+        const { secondInput } = this.state.getState();
+        if (secondInput) {
+          this.state.setState({ displayText: '', secondInput: !secondInput });
+          console.log(this.state.get('displayText'));
+        }
+
         this.updateDisplay(e.target.innerText);
         this.updateEquation(e.target.innerText);
       });
@@ -103,7 +110,10 @@ export class Calculator {
         this.state.set('selectedOperator', operator);
         savedEquation && this.updateEquation(operator);
         displayText &&
-          this.state.set('prevNumber', delinatedStringToNumber(displayText));
+          this.state.setState({
+            prevNumber: delinatedStringToNumber(displayText),
+            secondInput: true,
+          });
       });
     });
 
