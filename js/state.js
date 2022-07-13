@@ -27,10 +27,19 @@ export default (
       return state[key];
     },
 
-    resetState() {
-      for (let key in initalState) {
-        state[key] = initalState[key];
+    setState(obj) {
+      if (Object.getPrototypeOf(obj) !== Object.prototype) return;
+
+      for (let key in obj) {
+        this.set(key, obj[key]);
       }
+    },
+    getState() {
+      return { ...state };
+    },
+
+    resetState() {
+      state = { ...initalState };
     },
   };
 };

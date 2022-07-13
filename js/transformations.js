@@ -1,6 +1,6 @@
 export const delinatedStringToNumber = (str) => {
   const sanitisedString = str.replace(/,/g, '');
-  return Number(sanitisedString);
+  return parseFloat(sanitisedString);
 };
 
 export const numberToLocaleString = (number) => {
